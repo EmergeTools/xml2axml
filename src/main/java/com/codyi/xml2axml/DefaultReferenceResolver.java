@@ -18,11 +18,11 @@ public class DefaultReferenceResolver implements ReferenceResolver {
         String type=m.group(2);
         String name=m.group(3);
         try {
-            return Integer.parseInt(name, Encoder.Config.defaultReferenceRadix);
+            return Integer.parseInt(name, 16);
         }catch (Exception e){
             e.printStackTrace();
         }
-        int id=value.getContext().getResources().getIdentifier(name,type,pkg, false);
+        int id=value.getContext().getResources().getId(name,type,pkg);
         return id;
 
     }

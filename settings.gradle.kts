@@ -13,6 +13,7 @@ dependencyResolutionManagement {
             alias("kxml").to("net.sf.kxml:kxml2:2.3.0")
             alias("apache-commons-lang").to("org.apache.commons:commons-lang3:3.12.0")
             alias("apache-commons-io").to("commons-io:commons-io:1.4")
+            alias("clikt").to("com.github.ajalt.clikt:clikt:3.4.0")
         }
     }
 }
