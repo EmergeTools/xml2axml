@@ -1,5 +1,6 @@
 package com.codyi.xml2axml.chunks;
 
+import android.content.res.Resources;
 import com.codyi.xml2axml.IntWriter;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -31,7 +32,7 @@ public class StartTagChunk extends Chunk<StartTagChunk.H>{
     public LinkedList<AttrChunk> attrs=new LinkedList<AttrChunk>();
     public List<StartNameSpaceChunk> startNameSpace=new Stack<StartNameSpaceChunk>();
 
-    public StartTagChunk(Chunk parent,XmlPullParser p) throws XmlPullParserException {
+    public StartTagChunk(Chunk parent,XmlPullParser p, Resources resources) throws XmlPullParserException {
         super(parent);
         name = p.getName();
         stringPool().addString(name);
@@ -41,6 +42,10 @@ public class StartTagChunk extends Chunk<StartTagChunk.H>{
         for (short i = 0; i < ac; ++i) {
             String prefix = p.getAttributePrefix(i);
             String namespace = p.getAttributeNamespace(i);
+            Integer resourceId =  resources.get(name);
+            if (resourceId != null) {
+                namespace = "http://schemas.android.com/apk/res/android";
+            }
             String name = p.getAttributeName(i);
             String val = p.getAttributeValue(i);
             AttrChunk attr = new AttrChunk(this);

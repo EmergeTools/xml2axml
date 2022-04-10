@@ -1,7 +1,7 @@
 package com.codyi.xml2axml.chunks;
 
 import android.text.TextUtils;
-import com.codyi.xml2axml.Encoder;
+import com.codyi.xml2axml.AxmlEncoder;
 import com.codyi.xml2axml.IntWriter;
 
 import java.io.IOException;
@@ -92,7 +92,7 @@ public class StringPoolChunk extends Chunk<StringPoolChunk.H>{
     public int[] stylesOffset;
     public ArrayList<RawString> rawStrings;
 
-    public Encoding encoding= Encoder.Config.encoding;
+    public Encoding encoding= StringPoolChunk.Encoding.UNICODE;
 
     @Override
     public void preWrite() {
@@ -181,7 +181,7 @@ public class StringPoolChunk extends Chunk<StringPoolChunk.H>{
             String pkg="http://schemas.android.com/apk/res-auto".equals(namespace)?getContext().getPackageName():
                     namespace.startsWith("http://schemas.android.com/apk/res/")?namespace.substring("http://schemas.android.com/apk/res/".length()):null;
             if (pkg==null) return;
-            id=getContext().getResources().getIdentifier(string,"attr",pkg, false);
+            id=getContext().getResources().getId(string,"attr",pkg);
         }
     }
 

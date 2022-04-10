@@ -2,7 +2,8 @@ import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
 plugins {
     id("java")
-    id("com.github.johnrengelman.shadow") version ("7.1.2")
+    id("org.jetbrains.kotlin.jvm") version "1.6.20"
+    id("com.github.johnrengelman.shadow") version "7.1.2"
 }
 
 buildscript {
@@ -10,6 +11,10 @@ buildscript {
     repositories {
         mavenCentral()
         gradlePluginPortal()
+    }
+
+    dependencies {
+        classpath(kotlin("gradle-plugin", version = "1.6.10"))
     }
 }
 
@@ -24,12 +29,13 @@ dependencies {
     implementation(libs.kxml)
     implementation(libs.apache.commons.lang)
     implementation(libs.apache.commons.io)
+    implementation(libs.clikt)
 }
 
 tasks {
     named<ShadowJar>("shadowJar") {
         manifest {
-            attributes["Main-Class"] = "com.codyi.xml2axml.test.Main"
+            attributes["Main-Class"] = "com.codyi.xml2axml.MainKt"
         }
         isZip64 = true
         // Ignores the "-all" classifier shadow uses by default

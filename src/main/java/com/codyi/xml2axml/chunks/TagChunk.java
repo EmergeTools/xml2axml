@@ -1,5 +1,6 @@
 package com.codyi.xml2axml.chunks;
 
+import android.content.res.Resources;
 import com.codyi.xml2axml.IntWriter;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -21,7 +22,7 @@ public class TagChunk extends Chunk<Chunk.EmptyHeader>{
     public EndTagChunk endTag;
     public List<EndNameSpaceChunk> endNameSpace;
 
-    public TagChunk(Chunk parent,XmlPullParser p) throws XmlPullParserException {
+    public TagChunk(Chunk parent, XmlPullParser p, Resources resources) throws XmlPullParserException {
         super(parent);
         if (parent instanceof TagChunk){
             ((TagChunk) parent).content.add(this);
@@ -30,7 +31,7 @@ public class TagChunk extends Chunk<Chunk.EmptyHeader>{
         }else{
             throw new IllegalArgumentException("parent must be XmlChunk or TagChunk");
         }
-        startTag=new StartTagChunk(this,p);
+        startTag=new StartTagChunk(this,p,resources);
         endTag=new EndTagChunk(this,startTag);
         startNameSpace=startTag.startNameSpace;
         endNameSpace=new LinkedList<EndNameSpaceChunk>();
