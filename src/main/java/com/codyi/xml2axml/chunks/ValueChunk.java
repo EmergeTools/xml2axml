@@ -56,7 +56,7 @@ public class ValueChunk extends Chunk<Chunk.EmptyHeader> {
 
     public ValueChunk(AttrChunk parent) {
         super(parent);
-        header.size=8;
+        header.size = 8;
         this.attrChunk = parent;
     }
 
@@ -69,8 +69,8 @@ public class ValueChunk extends Chunk<Chunk.EmptyHeader> {
     public void writeEx(IntWriter w) throws IOException {
         w.write(size);
         w.write(res0);
-        if (type==ValueType.STRING){
-            data=stringIndex(null,realString);
+        if (type == ValueType.STRING) {
+            data = stringIndex(null, realString);
         }
         w.write(type);
         w.write(data);
@@ -133,7 +133,7 @@ public class ValueChunk extends Chunk<Chunk.EmptyHeader> {
             String v = m.group(2);
             if (t == null || t.isEmpty() || t.equals("string") || t.equals("str")) {
                 type = ValueType.STRING;
-                realString=v;
+                realString = v;
                 stringPool().addString(realString);
                 //data = stringIndex(null, v);
             } else {
@@ -144,64 +144,57 @@ public class ValueChunk extends Chunk<Chunk.EmptyHeader> {
             m = types.matcher(attrChunk.rawValue);
             if (m.find()) {
                 ValPair vp = new ValPair(m);
-                try {
-
-                    switch (vp.pos) {
-                        case 1:
-                            type = ValueType.NULL;
-                            data = 0;
-                            break;
-                        case 2:
-                            type = ValueType.REFERENCE;
-                            data = getReferenceResolver().resolve(this, vp.val);
-                            break;
-                        case 3:
-                            type = ValueType.INT_BOOLEAN;
-                            data = "true".equalsIgnoreCase(vp.val) ? 1 : 0;
-                            break;
-                        case 4:
-                            type = ValueType.INT_DEC;
-                            data = Integer.parseInt(vp.val);
-                            break;
-                        case 5:
-                            type = ValueType.INT_HEX;
-                            data = Integer.parseInt(vp.val.substring(2),16);
-                            break;
-                        case 6:
-                            type = ValueType.FLOAT;
-                            data = Float.floatToIntBits(Float.parseFloat(vp.val));
-                            break;
-                        case 7:
-                            type = ValueType.DIMENSION;
-                            data = evalcomplex(vp.val);
-                            break;
-                        case 8:
-                            type = ValueType.FRACTION;
-                            data = evalcomplex(vp.val);
-                            break;
-                        case 9:
-                            type = ValueType.INT_COLOR_ARGB8;
-                            data = Color.parseColor(vp.val);
-                            break;
-                        case 10:
-                            type = ValueType.INT_DEC;
-                            data = "wrap_content".equalsIgnoreCase(vp.val) ? -2 : -1;
-                            break;
-                        default:
-                            type = ValueType.STRING;
-                            realString=vp.val;
-                            stringPool().addString(realString);
-                            //data = stringIndex(null, attrChunk.rawValue);
-                            break;
-                    }
-                } catch (Exception exception) {
-                    type = ValueType.STRING;
-                    realString=attrChunk.rawValue;
-                    stringPool().addString(realString);
+                switch (vp.pos) {
+                    case 1:
+                        type = ValueType.NULL;
+                        data = 0;
+                        break;
+                    case 2:
+                        type = ValueType.REFERENCE;
+                        data = getReferenceResolver().resolve(this, vp.val);
+                        break;
+                    case 3:
+                        type = ValueType.INT_BOOLEAN;
+                        data = "true".equalsIgnoreCase(vp.val) ? 1 : 0;
+                        break;
+                    case 4:
+                        type = ValueType.INT_DEC;
+                        data = Integer.parseInt(vp.val);
+                        break;
+                    case 5:
+                        type = ValueType.INT_HEX;
+                        data = Integer.parseInt(vp.val.substring(2), 16);
+                        break;
+                    case 6:
+                        type = ValueType.FLOAT;
+                        data = Float.floatToIntBits(Float.parseFloat(vp.val));
+                        break;
+                    case 7:
+                        type = ValueType.DIMENSION;
+                        data = evalcomplex(vp.val);
+                        break;
+                    case 8:
+                        type = ValueType.FRACTION;
+                        data = evalcomplex(vp.val);
+                        break;
+                    case 9:
+                        type = ValueType.INT_COLOR_ARGB8;
+                        data = Color.parseColor(vp.val);
+                        break;
+                    case 10:
+                        type = ValueType.INT_DEC;
+                        data = "wrap_content".equalsIgnoreCase(vp.val) ? -2 : -1;
+                        break;
+                    default:
+                        type = ValueType.STRING;
+                        realString = vp.val;
+                        stringPool().addString(realString);
+                        //data = stringIndex(null, attrChunk.rawValue);
+                        break;
                 }
             } else {
                 type = ValueType.STRING;
-                realString=attrChunk.rawValue;
+                realString = attrChunk.rawValue;
                 stringPool().addString(realString);
                 //data = stringIndex(null, attrChunk.rawValue);
             }
