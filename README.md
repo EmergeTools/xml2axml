@@ -6,14 +6,14 @@ Tool for encoding xml to axml OR decoding axml to xml
 
 ### Usage
 
-#### xml to axml  
+#### xml to axml
 ``` shell
-java -jar xml2axml-2.1.0.jar e [AndroidManifest-readable-in.xml] [AndroidManifest-bin-out.xml]
+java -jar xml2axml-2.2.0.jar encode [AndroidManifest-readable-in.xml] [AndroidManifest-bin-out.xml]
 ```
 
 #### axml to xml
 ``` shell
-java -jar xml2axml-2.1.0.jar d [AndroidManifest-bin-in.xml] [AndroidManifest-readable-out.xml]
+java -jar xml2axml-2.2.0.jar decode [AndroidManifest-bin-in.xml] [AndroidManifest-readable-out.xml]
 ```
 
 ### Building
@@ -23,7 +23,7 @@ java -jar xml2axml-2.1.0.jar d [AndroidManifest-bin-in.xml] [AndroidManifest-rea
 ```
 
 Will produce two outputs in `/build/libs`:
-- `xml2axml-2.1.0.jar`
+- `xml2axml-2.2.0.jar`
 - `xml2axml` - a binary executable that can be run standalone
 
 ### Acknowledgements
