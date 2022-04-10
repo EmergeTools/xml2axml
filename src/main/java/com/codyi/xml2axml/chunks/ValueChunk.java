@@ -40,7 +40,7 @@ public class ValueChunk extends Chunk<Chunk.EmptyHeader> {
     byte type = -1;
     int data = -1;
 
-    Pattern explicitType = Pattern.compile("!(?:(\\w+)!)?(.*)");
+    Pattern explicitType = Pattern.compile("^!(?:(string|str|null|)!)?(.*)");
     Pattern types = Pattern.compile(("^(?:" +
             "(@null)" +
             "|(@\\+?(?:\\w+:)?\\w+/\\w+|@(?:\\w+:)?[0-9a-zA-Z]+)" +
