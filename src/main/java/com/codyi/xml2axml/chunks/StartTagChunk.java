@@ -42,7 +42,7 @@ public class StartTagChunk extends Chunk<StartTagChunk.H>{
         for (short i = 0; i < ac; ++i) {
             String prefix = p.getAttributePrefix(i);
             String namespace = p.getAttributeNamespace(i);
-            Integer resourceId =  resources.getAttrMap().get(name);
+            Integer resourceId =  resources.get(name);
             if (resourceId != null) {
                 namespace = "http://schemas.android.com/apk/res/android";
             }
