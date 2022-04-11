@@ -7,6 +7,7 @@ import com.codyi.xml2axml.NotImplementedException;
 import com.codyi.xml2axml.ValueType;
 
 import java.io.IOException;
+import java.math.BigInteger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -158,8 +159,20 @@ public class ValueChunk extends Chunk<Chunk.EmptyHeader> {
                         data = "true".equalsIgnoreCase(vp.val) ? 1 : 0;
                         break;
                     case 4:
-                        type = ValueType.INT_DEC;
-                        data = Integer.parseInt(vp.val);
+                        BigInteger maxInt = BigInteger.valueOf(Integer.MAX_VALUE);
+                        BigInteger value = new BigInteger(vp.val);
+
+                        // There's rare cases where strings that seem to be ints (i.e. tokens)
+                        // are decoded as Ints, which breaks if the value is larger than max int.
+                        // This is an easy workaround.
+                        if (value.compareTo(maxInt) > 0) {
+                            type = ValueType.STRING;
+                            realString = vp.val;
+                            stringPool().addString(realString);
+                        } else {
+                            type = ValueType.INT_DEC;
+                            data = Integer.parseInt(vp.val);
+                        }
                         break;
                     case 5:
                         type = ValueType.INT_HEX;
