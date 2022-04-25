@@ -5,11 +5,8 @@ plugins {
 }
 
 dependencies {
-
-    implementation(libs.kxml)
-    implementation(libs.apache.commons.lang)
-    implementation(libs.apache.commons.io)
     implementation(libs.clikt)
+    implementation(project(":parser"))
 }
 
 tasks {
