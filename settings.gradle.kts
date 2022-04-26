@@ -1,5 +1,7 @@
 @file:Suppress("UnstableApiUsage")
 
+rootProject.name = "xml2axml"
+
 enableFeaturePreview("VERSION_CATALOGS")
 
 dependencyResolutionManagement {
@@ -18,4 +20,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "xml2axml"
+include(":cli")
+include(":parser")

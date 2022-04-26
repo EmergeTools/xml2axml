@@ -1,7 +1,6 @@
 package com.codyi.xml2axml.chunks;
 
 import android.text.TextUtils;
-import com.codyi.xml2axml.AxmlEncoder;
 import com.codyi.xml2axml.IntWriter;
 
 import java.io.IOException;
