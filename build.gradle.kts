@@ -1,6 +1,10 @@
+import org.jetbrains.kotlin.gradle.plugin.KotlinPlatformJvmPlugin
+import com.github.jengelman.gradle.plugins.shadow.ShadowPlugin
+
 plugins {
     id("java")
     id("org.jetbrains.kotlin.jvm") version "1.6.20"
+    id("com.github.johnrengelman.shadow") version "7.1.2"
 }
 
 buildscript {
@@ -18,7 +22,8 @@ buildscript {
 allprojects {
 
     apply<JavaPlugin>()
-    apply(plugin = "org.jetbrains.kotlin.jvm")
+    apply<KotlinPlatformJvmPlugin>()
+    apply<ShadowPlugin>()
 
     java {
         toolchain {

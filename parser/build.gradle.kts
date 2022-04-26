@@ -1,3 +1,5 @@
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+
 dependencies {
     implementation(libs.aapt2.proto)
     implementation(libs.apache.commons.io)
@@ -15,4 +17,11 @@ configure<SourceSetContainer> {
     }
 }
 
-// TODO: Task for creating jar library
+tasks {
+    named<ShadowJar>("shadowJar") {
+        isZip64 = true
+        // Ignores the "-all" classifier shadow uses by default
+        archiveBaseName.set(project.name)
+        archiveClassifier.set("")
+    }
+}
