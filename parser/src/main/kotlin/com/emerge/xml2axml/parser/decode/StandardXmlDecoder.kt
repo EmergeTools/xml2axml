@@ -1,9 +1,9 @@
 package com.emerge.xml2axml.parser.decode
 
 import org.w3c.dom.Document
-import java.nio.file.Path
+import java.io.InputStream
 
 object StandardXmlDecoder : XmlDecoder {
 
-    override fun toDocument(inputPath: Path): Document = documentBuilder.parse(inputPath.toFile())
+    override fun toDocument(inputStream: InputStream): Document = documentBuilder.parse(inputStream)
 }

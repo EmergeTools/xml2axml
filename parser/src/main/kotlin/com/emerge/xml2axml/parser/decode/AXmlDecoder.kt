@@ -5,16 +5,15 @@ import com.emerge.xml2axml.parser.axml.resources.content.res.Resources
 import com.emerge.xml2axml.parser.axml.resources.util.TypedValue
 import org.w3c.dom.Document
 import org.xmlpull.v1.XmlPullParser
-import java.nio.file.Path
-import kotlin.io.path.inputStream
+import java.io.InputStream
 
 object AXmlDecoder : XmlDecoder {
 
     val resources = Resources.instance
 
-    override fun toDocument(inputPath: Path): Document {
+    override fun toDocument(inputStream: InputStream): Document {
         val parser = AXmlResourceParser()
-        parser.open(inputPath.inputStream())
+        parser.open(inputStream)
         val indent = StringBuilder(10)
 
         val lines = mutableListOf<String>()
