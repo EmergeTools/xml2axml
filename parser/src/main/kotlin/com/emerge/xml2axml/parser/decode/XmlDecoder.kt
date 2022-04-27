@@ -1,7 +1,6 @@
 package com.emerge.xml2axml.parser.decode
 
 import com.emerge.xml2axml.parser.encode.EncodingType
-import com.emerge.xml2axml.parser.util.getEncodingType
 import org.w3c.dom.Document
 import java.io.InputStream
 import java.nio.file.Path
@@ -21,13 +20,13 @@ interface XmlDecoder {
     fun toDocument(inputStream: InputStream): Document
 }
 
-fun decode(inputPath: Path): Document = when (getEncodingType(inputPath)) {
+fun decode(inputPath: Path, inputEncodingType: EncodingType): Document = when (inputEncodingType) {
     EncodingType.STANDARD -> StandardXmlDecoder.toDocument(inputPath)
     EncodingType.PROTO -> ProtoXmlDecoder.toDocument(inputPath)
     EncodingType.BINARY -> AXmlDecoder.toDocument(inputPath)
 }
 
-fun decode(inputStream: InputStream): Document = when (getEncodingType(inputStream)) {
+fun decode(inputStream: InputStream, inputEncodingType: EncodingType): Document = when (inputEncodingType) {
     EncodingType.STANDARD -> StandardXmlDecoder.toDocument(inputStream)
     EncodingType.PROTO -> ProtoXmlDecoder.toDocument(inputStream)
     EncodingType.BINARY -> AXmlDecoder.toDocument(inputStream)
