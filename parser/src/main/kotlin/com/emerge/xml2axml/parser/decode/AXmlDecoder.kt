@@ -30,10 +30,14 @@ object AXmlDecoder : XmlDecoder {
 
                     var i = namespaceCountBefore
                     while (i != namespaceCount) {
-                        lines.add(String.format("%sxmlns:%s=\"%s\"",
+                        val newLine = String.format("%sxmlns:%s=\"%s\"",
                             indent,
                             parser.getNamespacePrefix(i),
-                            parser.getNamespaceUri(i)))
+                            parser.getNamespaceUri(i))
+                        // Skip duplicate namespaces
+                        if (!lines.contains(newLine)) {
+                            lines.add(newLine)
+                        }
                         ++i
                     }
 
@@ -51,12 +55,15 @@ object AXmlDecoder : XmlDecoder {
                         }
 
                         name?.let {
-                            val line = String.format("%s%s%s=\"%s\"", indent,
+                            val newLine = String.format("%s%s%s=\"%s\"", indent,
                                 getNamespacePrefix(prefix),
                                 it,
                                 getAttributeValue(parser, attributeIndex)
                             )
-                            lines.add(line)
+                            // Skip duplicate attributes
+                            if (!lines.contains(newLine)) {
+                                lines.add(newLine)
+                            }
                         }
                     }
                     lines.add(String.format("%s>", indent))
