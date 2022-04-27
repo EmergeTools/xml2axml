@@ -7,8 +7,6 @@ dependencies {
     implementation(libs.bundletool)
     implementation(libs.kxml)
     implementation(libs.protobuf.kotlin)
-    implementation(libs.slf4j.nop)
-    implementation(libs.tika)
 }
 
 configure<SourceSetContainer> {
